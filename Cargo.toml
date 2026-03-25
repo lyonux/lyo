@@ -5,6 +5,10 @@ authors = ["lyon <leenus1024@gmail.com>"]
 edition = "2024"
 description = "automatic task distribution"
 license = "MIT"
+repository = "https://github.com/lyonux/lyo"
+homepage = "https://github.com/lyonux/lyo/blob/main/README.md"
+keywords = ["task", "distribution", "async"]
+categories = ["asynchronous"]
 
 [dependencies]
 anyhow = "1.0.102"
