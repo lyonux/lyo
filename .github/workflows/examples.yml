@@ -1,0 +1,23 @@
+name: examples
+
+on:
+    push:
+        branches: ["main", "lyo-*.x"]
+    pull_request:
+        branches: ["main", "lyo-*.x"]
+
+env:
+    CARGO_TERM_COLOR: always
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Run simple
+              run: cargo run --example simple
+            - name: Run task_queue
+              run: cargo run --example task_queue
+            - name: Run data_pipeline
+              run: cargo run --example data_pipeline
