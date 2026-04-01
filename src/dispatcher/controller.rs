@@ -78,7 +78,7 @@ mod tests {
         }
     }
 
-    impl<T> Consumer<T> for TestConsumer<T> {
+    impl<T: Send + Sync> Consumer<T> for TestConsumer<T> {
         fn consume(&self, _action: &T) -> impl std::future::Future<Output = ()> + Send {
             tracing::info!("Consuming _action");
             async {}
@@ -90,7 +90,7 @@ mod tests {
         }
     }
 
-    impl<T: Send> Producer<T> for TestProducer<T> {
+    impl<T: Send + Sync> Producer<T> for TestProducer<T> {
         async fn produce(&mut self) -> anyhow::Result<T> {
             match self.producer_rcv.recv().await {
                 Some(item) => Ok(item),
