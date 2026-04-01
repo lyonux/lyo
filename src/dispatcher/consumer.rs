@@ -1,4 +1,4 @@
-pub trait Consumer<T> {
+pub trait Consumer<T>: Send + Sync {
     fn consume(&self, action: &T) -> impl std::future::Future<Output = ()> + Send;
     fn stop(&self) -> impl std::future::Future<Output = ()> + Send;
 }

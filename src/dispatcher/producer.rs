@@ -1,6 +1,6 @@
 use anyhow::Result;
 
-pub trait Producer<T> {
+pub trait Producer<T>: Send + Sync {
     fn produce(&mut self) -> impl std::future::Future<Output = Result<T>> + Send;
 }
 
