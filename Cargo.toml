@@ -1,6 +1,6 @@
 [package]
 name = "lyo"
-version = "0.1.3"
+version = "0.1.2"
 authors = ["lyon <leenus1024@gmail.com>"]
 edition = "2024"
 description = "automatic task distribution"
