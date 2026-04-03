@@ -1,6 +1,6 @@
 pub trait Consumer<T>: Send + Sync {
-    fn consume(&self, action: &T) -> impl std::future::Future<Output = ()> + Send;
-    fn stop(&self) -> impl std::future::Future<Output = ()> + Send;
+    fn consume(&mut self, action: &T) -> impl std::future::Future<Output = ()> + Send;
+    fn stop(&mut self) -> impl std::future::Future<Output = ()> + Send;
 }
 
 #[cfg(test)]
