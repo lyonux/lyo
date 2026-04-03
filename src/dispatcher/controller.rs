@@ -79,12 +79,12 @@ mod tests {
     }
 
     impl<T: Send + Sync> Consumer<T> for TestConsumer<T> {
-        fn consume(&self, _action: &T) -> impl std::future::Future<Output = ()> + Send {
+        fn consume(&mut self, _action: &T) -> impl std::future::Future<Output = ()> + Send {
             tracing::info!("Consuming _action");
             async {}
         }
 
-        fn stop(&self) -> impl std::future::Future<Output = ()> + Send {
+        fn stop(&mut self) -> impl std::future::Future<Output = ()> + Send {
             tracing::info!("Stopping consumer");
             async {}
         }

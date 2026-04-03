@@ -43,11 +43,11 @@ impl Producer<Message> for MessageProducer {
 struct MessageConsumer;
 
 impl Consumer<Message> for MessageConsumer {
-    async fn consume(&self, msg: &Message) {
+    async fn consume(&mut self, msg: &Message) {
         println!("Consuming: {} - {}", msg.id, msg.content);
     }
 
-    async fn stop(&self) {
+    async fn stop(&mut self) {
         println!("Consumer stopped");
     }
 }

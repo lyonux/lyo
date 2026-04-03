@@ -33,9 +33,9 @@ impl Producer<Task> for TaskProducer {
 
         self.task_id += 1;
         let priority = match self.task_id % 3 {
-            0 => 1,  // High priority
-            1 => 2,  // Medium priority
-            _ => 3,  // Low priority
+            0 => 1, // High priority
+            1 => 2, // Medium priority
+            _ => 3, // Low priority
         };
 
         // Simulate variable production rate
@@ -62,12 +62,13 @@ impl TaskConsumer {
     }
 
     fn count(&self) -> u32 {
-        self.processed_count.load(std::sync::atomic::Ordering::Relaxed)
+        self.processed_count
+            .load(std::sync::atomic::Ordering::Relaxed)
     }
 }
 
 impl Consumer<Task> for TaskConsumer {
-    async fn consume(&self, task: &Task) {
+    async fn consume(&mut self, task: &Task) {
         // Simulate processing time based on priority
         let processing_time = match task.priority {
             1 => Duration::from_millis(200), // High priority takes longer
@@ -82,11 +83,12 @@ impl Consumer<Task> for TaskConsumer {
 
         sleep(processing_time).await;
 
-        self.processed_count.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        self.processed_count
+            .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         println!("[Task #{}] Completed!", task.id);
     }
 
-    async fn stop(&self) {
+    async fn stop(&mut self) {
         println!(
             "Task queue shutting down. Total processed: {}",
             self.count()

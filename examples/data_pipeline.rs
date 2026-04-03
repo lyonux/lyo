@@ -84,7 +84,7 @@ impl DataProcessorConsumer {
 }
 
 impl Consumer<DataItem> for DataProcessorConsumer {
-    async fn consume(&self, item: &DataItem) {
+    async fn consume(&mut self, item: &DataItem) {
         // Simulate processing time
         sleep(Duration::from_millis(50)).await;
 
@@ -116,7 +116,7 @@ impl Consumer<DataItem> for DataProcessorConsumer {
         *self.sum_values.lock().await += computed;
     }
 
-    async fn stop(&self) {
+    async fn stop(&mut self) {
         let total = self
             .total_processed
             .load(std::sync::atomic::Ordering::Relaxed);
